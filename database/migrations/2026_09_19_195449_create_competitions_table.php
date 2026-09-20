@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('icon')->nullable();
-            $table->timestamps();
+        Schema::create('competitions', function (Blueprint $table) {
+            $table->foreignId('id')->constrained('events')->cascadeOnDelete();
+            $table->primary('id');
+            $table->string('prize')->nullable();
+            $table->string('team_size')->nullable();
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('competitions');
     }
 };

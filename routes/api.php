@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\OrgAuthController;
+use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\Admin\OrganizationManagementController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,11 @@ Route::prefix('v1')->group(function () {
         Route::post('/org/register', [OrgAuthController::class, 'register']);
         Route::post('/org/login', [OrgAuthController::class, 'login']);
     });
+
+    // — Public Events routes ——————————————————————————————————————
+    // Anyone can browse events, no login required.
+    Route::get('/events', [EventController::class, 'index']);
+    Route::get('/events/{event}', [EventController::class, 'show']);
 
     // — Protected User routes (require Bearer token) ————————————————
     Route::middleware('auth:sanctum')->group(function () {
